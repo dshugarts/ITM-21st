@@ -1,6 +1,7 @@
 const app = angular.module("Candidate.App", []);
 
 
+
 app.component("itmRoot", {
     controller: class {
         constructor() {
@@ -50,6 +51,23 @@ app.component("itmManagement", {
             this.newCandidate = {
                 name: ""
             };
+
+            console.log('in Management');
+
+            this.getCandidates = function() {
+                console.log('in getCandidates');
+                $http({
+                    method: 'GET',
+                    url: '/data'
+                }).then(function (response) {
+                 console.log('get get', response.data);
+                }).catch(function (error) {
+                 console.log('get error', error);
+                })
+            }
+
+            this.getCandidates();
+
         this.postData = function(candidate) {
             console.log('function candidate = ', candidate);
             const entry = {
@@ -69,8 +87,10 @@ app.component("itmManagement", {
              console.log('post error', error);
             })
         }
+        
         }
-        }
+        
+    }
 
         submitCandidate(candidate) {
             this.entry = '';
@@ -141,5 +161,7 @@ app.component("itmResults", {
             </li>
         </ul>
     `
+
 });
+
 // }]);
