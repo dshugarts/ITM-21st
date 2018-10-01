@@ -13,6 +13,7 @@ app.component("itmRoot", {
 
         onAddCandidate(candidate) {
             console.log(`Added candidate ${candidate.name}`);
+         
         }
 
         onRemoveCandidate(candidate) {
@@ -54,52 +55,57 @@ app.component("itmManagement", {
 
             console.log('in Management');
 
-            this.getCandidates = function() {
-                console.log('in getCandidates');
-                $http({
-                    method: 'GET',
-                    url: '/data'
-                }).then(function (response) {
-                 console.log('get get', response.data);
-                }).catch(function (error) {
-                 console.log('get error', error);
-                })
-            }
+            // this.getCandidates = function() {
+            //     console.log('in getCandidates');
+            //     $http({
+            //         method: 'GET',
+            //         url: '/data'
+            //     }).then(function (response) {
+            //      console.log('get get', response.data);
+            //     }).catch(function (error) {
+            //      console.log('get error', error);
+            //     })
+            // }
 
-            this.getCandidates();
+            // this.getCandidates();
 
-        this.postData = function(candidate) {
-            console.log('function candidate = ', candidate);
-            const entry = {
-                category_name: candidate.name
-            }
-            console.log('entry = ', entry);
-            if (entry.category_name == undefined) {
-                alert("Please Enter a Candidate Name");
-            } else {
-            $http({
-                method: 'POST',
-                url: '/data',
-                data: {entry: entry}
-            }).then(function (response) {
-             console.log('post post', response, entry);
-            }).catch(function (error) {
-             console.log('post error', error);
-            })
-        }
+        // this.postData = function(candidate) {
+        //     console.log('function candidate = ', candidate);
+        //     const entry = {
+        //         category_name: candidate.name
+        //     }
+        //     console.log('entry = ', entry);
+        //     if (entry.category_name == undefined) {
+        //         alert("Please Enter a Candidate Name");
+        //     } else {
+        //     $http({
+        //         method: 'POST',
+        //         url: '/data',
+        //         data: {entry: entry}
+        //     }).then(function (response) {
+        //      console.log('post post', response, entry);
+        //     }).catch(function (error) {
+        //      console.log('post error', error);
+        //     })
+        // }
         
-        }
+        // }
         
     }
 
         submitCandidate(candidate) {
-            this.entry = '';
-            this.onAdd({ $candidate: candidate });
             console.log('name = ', candidate);
+            candidate = {
+                name: candidate.name,
+                votes: 0
+            }
+            console.log('name 2= ', candidate);
+            this.onAdd({ $candidate: candidate })
+            this.candidates.push(candidate);
             if (candidate.name === '') {
                 alert("Please Enter a Candidate Name");
             } else {
-            this.postData(candidate);
+          //  this.postData(candidate);
           }
         }
         
