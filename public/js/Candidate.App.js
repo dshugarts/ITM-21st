@@ -1,11 +1,11 @@
 const app = angular.module("Candidate.App", []);
 
+
 app.component("itmRoot", {
     controller: class {
         constructor() {
             this.candidates = [{ name: "Puppies", votes: 10 }, { name: "Kittens", votes: 12 }, { name: "Gerbils", votes: 7 }];
         }
-
         onVote(candidate) {
             console.log(`Vote for ${candidate.name}`);
         }
@@ -45,16 +45,45 @@ app.component("itmManagement", {
         onRemove: "&"
     },
     controller: class {
-        constructor() {
+        constructor($http) {
+            this.$http = $http;
             this.newCandidate = {
                 name: ""
             };
+        this.postData = function(candidate) {
+            console.log('function candidate = ', candidate);
+            const entry = {
+                category_name: candidate.name
+            }
+            console.log('entry = ', entry);
+            $http({
+                method: 'POST',
+                url: '/data',
+                data: {entry: entry}
+            }).then(function (response) {
+             console.log('post post', response, entry);
+            }).catch(function (error) {
+             console.log('post error', error);
+            })
+        }
         }
 
         submitCandidate(candidate) {
+            this.entry = '';
             this.onAdd({ $candidate: candidate });
-        }
-
+            console.log('name = ', candidate);
+            this.postData(candidate);
+            //     $http({
+            //       method: 'POST',
+            //       url: '/data',
+            //       data: {entry: entry}
+            //   }).then(function (response) {
+            //    console.log('post post', response, entry);
+            //   }).catch(function (error) {
+            //    console.log('post error', error);
+            //   })
+          }
+        
         removeCandidate(candidate) {
             this.onRemove({ $candidate: candidate });
         }
@@ -114,3 +143,4 @@ app.component("itmResults", {
         </ul>
     `
 });
+// }]);
