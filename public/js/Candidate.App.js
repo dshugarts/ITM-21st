@@ -56,6 +56,9 @@ app.component("itmManagement", {
                 category_name: candidate.name
             }
             console.log('entry = ', entry);
+            if (entry.category_name == undefined) {
+                alert("Please Enter a Candidate Name");
+            } else {
             $http({
                 method: 'POST',
                 url: '/data',
@@ -67,22 +70,18 @@ app.component("itmManagement", {
             })
         }
         }
+        }
 
         submitCandidate(candidate) {
             this.entry = '';
             this.onAdd({ $candidate: candidate });
             console.log('name = ', candidate);
+            if (candidate.name === '') {
+                alert("Please Enter a Candidate Name");
+            } else {
             this.postData(candidate);
-            //     $http({
-            //       method: 'POST',
-            //       url: '/data',
-            //       data: {entry: entry}
-            //   }).then(function (response) {
-            //    console.log('post post', response, entry);
-            //   }).catch(function (error) {
-            //    console.log('post error', error);
-            //   })
           }
+        }
         
         removeCandidate(candidate) {
             this.onRemove({ $candidate: candidate });
