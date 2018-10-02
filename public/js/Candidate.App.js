@@ -61,6 +61,7 @@ app.component("itmRoot", {
 
     },
     template: `
+    <div class="container2">
         <h1>Which candidate brings the most joy?</h1>
              
         <itm-results 
@@ -77,6 +78,7 @@ app.component("itmRoot", {
             on-add="$ctrl.onAddCandidate($candidate)"
             on-remove="$ctrl.onRemoveCandidate($candidate)">
         </itm-management>
+        </div>
     `
 });
 
@@ -106,7 +108,8 @@ app.component("itmManagement", {
             console.log('name = ', candidate);
             candidate = {
                 name: candidate.name,
-                votes: 0
+                votes: 0,
+                percent: 0+"%"
             }
             console.log('name 2= ', candidate);
            
@@ -148,24 +151,42 @@ app.component("itmManagement", {
             }
     },
     template: `
-        <h2>Manage Candidates</h2>
+        <div id="manage">
+        <h1>Manage Candidates</h1>
+        </div>
 
+        <div class="container2">
         <h3>Add New Candidate</h3>
-        <form ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
+        <div class="container">
+        <form class="col-ml-12" ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
 
-            <label>Candidate Name</label>
+            <label><strong>Candidate Name: </strong></label>
             <input type="text" ng-model="$ctrl.newCandidate.name" required>
 
-            <button type="submit" class="btn btn-success">Add</button>
+            <button type="submit" class="btn btn-success">Create</button>
         </form>
+        </div>
+        </div>
 
+        <div class="container2">
         <h3>Remove Candidate</h3>
-        <ul>
-            <li ng-repeat="candidate in $ctrl.candidates">
-                <span ng-bind="candidate.name"></span>
-                <button type="button" ng-click="$ctrl.removeCandidate(candidate)">X</button>
-            </li>
-        </ul>
+        <div class="container">
+        <table class="table table-hover">
+        <thead>
+        <tr class="table-primary">
+          <th>Candidate Name</th>
+          <th>Remove Candidate</th>
+        </tr>
+      </thead>
+
+      <tbody ng-repeat="candidate in $ctrl.candidates">
+      <tr>
+        <td>{{candidate.name}}</td>
+        <td><button type="button" class="btn btn-danger" ng-click="$ctrl.removeCandidate(candidate)">Delete</button></td>
+    </tbody>
+    </table>
+        </div>
+        </div>
 
     `
 });
@@ -177,13 +198,16 @@ app.component("itmVote", {
     },
     controller: class {},
     template: `
-        <h2>Cast your vote!</h2>
-
-        <button type="button"
+    <div class="container2">
+        <h3>Cast your vote!</h3>
+        <div class="container2">
+        <button type="button" class="btn btn-info col-sm-2"
             ng-repeat="candidate in $ctrl.candidates"
             ng-click="$ctrl.onVote({ $candidate: candidate })">
             <span ng-bind="candidate.name"></span>
         </button>
+        </div>
+        </div>
     `
 });
 
@@ -193,14 +217,27 @@ app.component("itmResults", {
     },
     controller: class {},
     template: `
-        <h2>Live Results</h2>
-        <ul>
-            <li ng-repeat="candidate in $ctrl.candidates | orderBy: '-votes'">
-                <span ng-bind="candidate.name"></span>
-                <strong ng-bind="candidate.votes"></strong>
-                <strong ng-bind="candidate.percent"></strong>
-            </li>
-        </ul>
+    <div class="container2">
+        <h3>Live Results</h3>
+        <div class="container">
+        <table class="table table-hover">
+        <thead>
+        <tr class="table-primary">
+          <th>Candidate Name</th>
+          <th>Number of Votes</th>
+          <th>Percentage of Votes</th>
+        </tr>
+      </thead>
+
+      <tbody ng-repeat="candidate in $ctrl.candidates | orderBy: '-votes'">
+      <tr>
+        <td>{{candidate.name}}</td>
+        <td>{{candidate.votes}}</td>
+        <td>{{candidate.percent}}</td>
+    </tbody>
+    </table>
+        </div>
+        </div>
     `
 
 });

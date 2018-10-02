@@ -1,0 +1,27 @@
+.container {
+    margin-top: 20PX;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 10px;
+    outline-style: solid;
+    outline-width: 1px;
+  }
+
+  .container2 {
+    margin-top: 20PX;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 10px;
+  }
+
+h3 {
+    font-style: italic;
+  }
+
+h1 {
+    text-decoration: underline;
+}  
+
+#manage {
+    margin-top: 50px;
+}
