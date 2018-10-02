@@ -4,7 +4,7 @@ const app = angular.module("Candidate.App", []);
 app.component("itmRoot", {
     controller: class {
         constructor() {
-             this.candidates = [{ name: "Puppies", votes: 10, percent: 0+"%" }, { name: "Kittens", votes: 12, percent: 0+"%" }, { name: "Gerbils", votes: 7, percent: 0+"%" }];
+             this.candidates = [{ name: "Puppies", color: "Silver", votes: 10, percent: 0+"%" }, { name: "Kittens", color: "Orange", votes: 12, percent: 0+"%" }, { name: "Gerbils", color: "White", votes: 7, percent: 0+"%" }];
              
              this.calcPercentage = function() {
                 let voteSum = 0;
