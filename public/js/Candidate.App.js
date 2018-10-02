@@ -8,17 +8,13 @@ app.component("itmRoot", {
              
              this.calcPercentage = function() {
                 let voteSum = 0;
-                console.log('in calc percent OLD', this.candidates);
                
                 this.candidates.forEach(function(existingCandidate) {
-                    console.log('forEach = ', existingCandidate);
                     voteSum = existingCandidate.votes + voteSum;
                 }) // creates total sum of votes
 
-                console.log(voteSum);
                 this.candidates.forEach(function(existingCandidate) {
                     existingCandidate.percent = Math.round((existingCandidate.votes/voteSum)*100)+"%";
-                    console.log('forEach = ', existingCandidate);
                 }) // calculates and rounds percentage for each object
             } // end calcPercentage
 
@@ -28,18 +24,12 @@ app.component("itmRoot", {
 
         // adds vote onClick for selected object
         onVote(candidate) {
-            console.log(`Vote for ${candidate.name}`);
-            console.log(candidate.votes);
             let addVote = candidate.votes + 1
-            console.log(addVote);
             candidate.votes = addVote;
-            console.log(this.candidates);
             this.calcPercentage();
         } // end onVote
 
         onAddCandidate(candidate) {
-            console.log(`Added candidate ${candidate.name}`);
-            console.log('name = ', candidate);
             let duplicate = false;
 
             candidate = {
@@ -49,54 +39,39 @@ app.component("itmRoot", {
                 percent: 0+"%"
             } // defines new candidate object
 
-            console.log('name 2= ', candidate);
-           
             // validates input
             this.validation = function(duplicate) {
-                console.log('in valid', duplicate);
                 if (candidate.name === '') {
                     swal("Error!", "Please Enter a Candidate Name!", "error");
                 } else if (duplicate === true) {
                     swal("Error!", "Duplicate candidates are forbidden!", "error");
                 } else {
                     swal("Success!", "The candidate has been created!", "success");
-                    console.log('double');
                     this.candidates.push(candidate);
               }
             } // end validation
            
             this.candidates.forEach(function(existingCandidate) {
-                
-                console.log('forEach = ', existingCandidate);
                 if (candidate.name === existingCandidate.name) {
                     duplicate = true;
                    // location.reload();
                 } else {
                   //  duplicate = false;
                 }
-                console.log('duplicate', duplicate);
                 }); // checks input for duplicate candidates
 
                 this.validation(duplicate);
         } // end onAddCandidate
 
         onRemoveCandidate(candidate) {
-            console.log(`Removed candidate ${candidate.name}`);
-
             // splices object from array
             this.removeCandidate = function(object) {
-                console.log('array = ', object);
-                console.log('old', this.candidates);
                 this.candidates.splice(object, 1);
-                console.log('new', this.candidates);
             } // end removeCandidate
 
             // identifies index of selected object
-            console.log('remove', candidate);
             var candidateArray = this.candidates;
-            console.log('words', candidateArray);
             const removedObject = candidateArray.findIndex(selected => selected.name === candidate.name);
-            console.log('result', removedObject);
             this.removeCandidate(removedObject);
         } // end onRemoveCandidate
 
@@ -133,8 +108,6 @@ app.component("itmManagement", {
         constructor($http, $scope) {
             this.$http = $http;
             this.$scope = $scope;
-
-            console.log('in Management');
     }
 
 
@@ -144,6 +117,7 @@ app.component("itmManagement", {
              // clears textbox on click
              this.clearText = function() {
                 this.newCandidate.name = "";
+                this.newCandidate.color = "";
             } //end clearText
 
             this.clearText();
