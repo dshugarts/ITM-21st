@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 
-const dataRouter = require('./routes/data.router');
 
 app.use(express.static("./public"));
 
@@ -12,7 +11,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/data', dataRouter);
 
 
 app.get("*", (request, response) => {
