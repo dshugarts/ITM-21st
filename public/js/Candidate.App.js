@@ -54,10 +54,11 @@ app.component("itmRoot", {
             this.validation = function(duplicate) {
                 console.log('in valid', duplicate);
                 if (candidate.name === '') {
-                    alert("Please Enter a Candidate Name");
+                    swal("Error!", "Please Enter a Candidate Name!", "error");
                 } else if (duplicate === true) {
-                    alert("Duplicate Candidates are Forbidden");
+                    swal("Error!", "Duplicate candidates are forbidden!", "error");
                 } else {
+                    swal("Success!", "The candidate has been created!", "success");
                     console.log('double');
                     this.candidates.push(candidate);
               }
@@ -151,6 +152,7 @@ app.component("itmManagement", {
         
         removeCandidate(candidate) {
             this.onRemove({ $candidate: candidate });
+            swal("Success!", "The candidate has been deleted!", "success");
             } // end removeCandidate
 
     },
