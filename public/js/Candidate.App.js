@@ -1,7 +1,6 @@
 const app = angular.module("Candidate.App", []);
 
 
-
 app.component("itmRoot", {
     controller: class {
         constructor() {
@@ -9,6 +8,11 @@ app.component("itmRoot", {
         }
         onVote(candidate) {
             console.log(`Vote for ${candidate.name}`);
+            console.log(candidate.votes);
+            let newVote = candidate.votes + 1
+            console.log(newVote);
+            candidate.votes = newVote;
+            console.log(this.candidates);
         }
 
         onAddCandidate(candidate) {
@@ -47,66 +51,54 @@ app.component("itmManagement", {
         onRemove: "&"
     },
     controller: class {
-        constructor($http) {
+        constructor($http, $scope) {
             this.$http = $http;
+            this.$scope = $scope;
             this.newCandidate = {
                 name: ""
             };
 
             console.log('in Management');
-
-            // this.getCandidates = function() {
-            //     console.log('in getCandidates');
-            //     $http({
-            //         method: 'GET',
-            //         url: '/data'
-            //     }).then(function (response) {
-            //      console.log('get get', response.data);
-            //     }).catch(function (error) {
-            //      console.log('get error', error);
-            //     })
-            // }
-
-            // this.getCandidates();
-
-        // this.postData = function(candidate) {
-        //     console.log('function candidate = ', candidate);
-        //     const entry = {
-        //         category_name: candidate.name
-        //     }
-        //     console.log('entry = ', entry);
-        //     if (entry.category_name == undefined) {
-        //         alert("Please Enter a Candidate Name");
-        //     } else {
-        //     $http({
-        //         method: 'POST',
-        //         url: '/data',
-        //         data: {entry: entry}
-        //     }).then(function (response) {
-        //      console.log('post post', response, entry);
-        //     }).catch(function (error) {
-        //      console.log('post error', error);
-        //     })
-        // }
-        
-        // }
-        
     }
 
         submitCandidate(candidate) {
+            let self = this;
+            self.cleartext = function() {
+                this.newCandidate.name = "";
+            }
             console.log('name = ', candidate);
             candidate = {
                 name: candidate.name,
                 votes: 0
             }
             console.log('name 2= ', candidate);
-            this.onAdd({ $candidate: candidate })
-            this.candidates.push(candidate);
-            if (candidate.name === '') {
-                alert("Please Enter a Candidate Name");
-            } else {
-          //  this.postData(candidate);
-          }
+           
+            self.validation = function() {
+                console.log('in valid');
+                if (candidate.name === '') {
+                    alert("Please Enter a Candidate Name");
+                    self.cleartext();
+                } else {
+                    console.log('double');
+                    this.onAdd({ $candidate: candidate })
+                    this.candidates.push(candidate);
+                    self.cleartext();
+              }
+            }
+           
+            this.candidates.forEach(function(existingCandidate) {
+                let duplicate = false;
+                console.log('forEach = ', existingCandidate);
+                if (candidate.name === existingCandidate.name) {
+                    duplicate = true;
+                    alert("Duplicate");
+                    location.reload();
+                } else {
+                    duplicate = false;
+                }
+                console.log('duplicate', duplicate);
+                });
+                self.validation();
         }
         
         removeCandidate(candidate) {
