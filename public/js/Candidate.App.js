@@ -22,6 +22,19 @@ app.component("itmRoot", {
 
         onRemoveCandidate(candidate) {
             console.log(`Removed candidate ${candidate.name}`);
+            this.newCandidates = function(object) {
+                console.log('array = ', object);
+                console.log('old', this.candidates);
+                this.candidates.splice(object, 1);
+                console.log('new', this.candidates);
+            }
+            console.log('remove', candidate);
+            var words = this.candidates;
+            console.log('words', words);
+            const result = words.findIndex(word => word.name === candidate.name);
+            console.log('result', result);
+            this.newCandidates(result);
+
         }
     },
     template: `
@@ -101,9 +114,14 @@ app.component("itmManagement", {
                 self.validation();
         }
         
+        
+        
+        
+        
         removeCandidate(candidate) {
             this.onRemove({ $candidate: candidate });
-        }
+         
+            }
     },
     template: `
         <h2>Manage Candidates</h2>
