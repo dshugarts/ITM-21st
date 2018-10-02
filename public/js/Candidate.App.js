@@ -190,7 +190,7 @@ app.component("itmVote", {
     <section class="container2">
         <h3>Cast your vote!</h3>
         <div class="container2">
-        <button type="button" class="btn btn-info col-sm-2"
+        <button type="button" class="btn btn-outline-info col-sm-2"
             ng-repeat="candidate in $ctrl.candidates"
             ng-click="$ctrl.onVote({ $candidate: candidate })">
             <span ng-bind="candidate.name"></span>
@@ -209,6 +209,7 @@ app.component("itmResults", {
     <section class="container2">
         <h3>Live Results</h3>
         <div class="container">
+        <div class="table-responsive-sm">
         <table class="table table-hover">
         <thead>
         <tr class="table-primary">
@@ -227,6 +228,7 @@ app.component("itmResults", {
         <td>{{candidate.percent}}</td>
     </tbody>
     </table>
+        </div>
         </div>
         </section>
     `
