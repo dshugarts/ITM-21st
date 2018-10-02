@@ -4,8 +4,30 @@ const app = angular.module("Candidate.App", []);
 app.component("itmRoot", {
     controller: class {
         constructor() {
-            this.candidates = [{ name: "Puppies", votes: 10 }, { name: "Kittens", votes: 12 }, { name: "Gerbils", votes: 7 }];
-        }
+             this.candidates = [{ name: "Puppies", votes: 10, percent: 0+"%" }, { name: "Kittens", votes: 12, percent: 0+"%" }, { name: "Gerbils", votes: 7, percent: 0+"%" }];
+             
+             this.calcPercent = function() {
+                 let voteSum = 0;
+                console.log('in calc percent OLD', this.candidates);
+               
+                this.candidates.forEach(function(existingCandidate) {
+                    
+                    console.log('forEach = ', existingCandidate);
+                    voteSum = existingCandidate.votes + voteSum;
+                    
+                })
+                console.log(voteSum);
+                this.candidates.forEach(function(existingCandidate) {
+                    
+                    
+                    existingCandidate.percent = Math.round((existingCandidate.votes/voteSum)*100)+"%";
+                    console.log('forEach = ', existingCandidate);
+                    
+                })
+            }
+
+            this.calcPercent();
+            }
         onVote(candidate) {
             console.log(`Vote for ${candidate.name}`);
             console.log(candidate.votes);
@@ -13,6 +35,7 @@ app.component("itmRoot", {
             console.log(newVote);
             candidate.votes = newVote;
             console.log(this.candidates);
+            this.calcPercent();
         }
 
         onAddCandidate(candidate) {
@@ -34,8 +57,8 @@ app.component("itmRoot", {
             const result = words.findIndex(word => word.name === candidate.name);
             console.log('result', result);
             this.newCandidates(result);
-
         }
+
     },
     template: `
         <h1>Which candidate brings the most joy?</h1>
@@ -72,6 +95,7 @@ app.component("itmManagement", {
             };
 
             console.log('in Management');
+
     }
 
         submitCandidate(candidate) {
@@ -174,6 +198,7 @@ app.component("itmResults", {
             <li ng-repeat="candidate in $ctrl.candidates | orderBy: '-votes'">
                 <span ng-bind="candidate.name"></span>
                 <strong ng-bind="candidate.votes"></strong>
+                <strong ng-bind="candidate.percent"></strong>
             </li>
         </ul>
     `
