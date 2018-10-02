@@ -156,7 +156,7 @@ app.component("itmManagement", {
             <label>Candidate Name</label>
             <input type="text" ng-model="$ctrl.newCandidate.name" required>
 
-            <button type="submit">Add</button>
+            <button type="submit" class="btn btn-success">Add</button>
         </form>
 
         <h3>Remove Candidate</h3>
