@@ -153,7 +153,7 @@ app.component("itmResults", {
     template: `
         <h2>Live Results</h2>
         <ul>
-            <li ng-repeat="candidate in $ctrl.candidates">
+            <li ng-repeat="candidate in $ctrl.candidates | orderBy: '-votes'">
                 <span ng-bind="candidate.name"></span>
                 <strong ng-bind="candidate.votes"></strong>
             </li>
