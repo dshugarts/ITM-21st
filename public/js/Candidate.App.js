@@ -134,7 +134,7 @@ app.component("itmManagement", {
         <h1>Manage Candidates</h1>
         </div>
 
-        <div class="container2">
+        <section class="container2">
         <h3>Add New Candidate</h3>
         <div class="container">
         <form class="col-md-12" ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
@@ -155,9 +155,9 @@ app.component("itmManagement", {
 
         </form>
         </div>
-        </div>
+        </section>
 
-        <div class="container2">
+        <section class="container2">
         <h3>Remove Candidate</h3>
         <div class="container">
         <table class="table table-hover">
@@ -175,7 +175,7 @@ app.component("itmManagement", {
     </tbody>
     </table>
         </div>
-        </div>
+        </section>
 
     `
 });
@@ -187,7 +187,7 @@ app.component("itmVote", {
     },
     controller: class {},
     template: `
-    <div class="container2">
+    <section class="container2">
         <h3>Cast your vote!</h3>
         <div class="container2">
         <button type="button" class="btn btn-info col-sm-2"
@@ -196,7 +196,7 @@ app.component("itmVote", {
             <span ng-bind="candidate.name"></span>
         </button>
         </div>
-        </div>
+        </section>
     `
 });
 
@@ -206,7 +206,7 @@ app.component("itmResults", {
     },
     controller: class {},
     template: `
-    <div class="container2">
+    <section class="container2">
         <h3>Live Results</h3>
         <div class="container">
         <table class="table table-hover">
@@ -228,6 +228,6 @@ app.component("itmResults", {
     </tbody>
     </table>
         </div>
-        </div>
+        </section>
     `
 });
