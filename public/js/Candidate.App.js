@@ -44,6 +44,7 @@ app.component("itmRoot", {
 
             candidate = {
                 name: candidate.name,
+                color: candidate.color,
                 votes: 0,
                 percent: 0+"%"
             } // defines new candidate object
@@ -132,12 +133,10 @@ app.component("itmManagement", {
         constructor($http, $scope) {
             this.$http = $http;
             this.$scope = $scope;
-            this.newCandidate = {
-                name: ""
-            };
 
             console.log('in Management');
     }
+
 
         submitCandidate(candidate) {
             this.onAdd({ $candidate: candidate });
@@ -164,12 +163,22 @@ app.component("itmManagement", {
         <div class="container2">
         <h3>Add New Candidate</h3>
         <div class="container">
-        <form class="col-ml-12" ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
-
+        <form class="col-md-12" ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
+    
+            <div class="form-group col-md-8">
             <label><strong>Candidate Name: </strong></label>
             <input type="text" ng-model="$ctrl.newCandidate.name" required>
+            </div>
 
+            <div class="form-group col-md-8">
+            <label><strong>Candidate Color: </strong></label>
+            <input type="text" ng-model="$ctrl.newCandidate.color">
+            </div>
+        
+            <div class="form-group col-md-8">
             <button type="submit" class="btn btn-success">Create</button>
+            </div>
+
         </form>
         </div>
         </div>
@@ -230,6 +239,7 @@ app.component("itmResults", {
         <thead>
         <tr class="table-primary">
           <th>Candidate Name</th>
+          <th>Color</th>
           <th>Number of Votes</th>
           <th>Percentage of Votes</th>
         </tr>
@@ -238,6 +248,7 @@ app.component("itmResults", {
       <tbody ng-repeat="candidate in $ctrl.candidates | orderBy: '-votes'">
       <tr>
         <td>{{candidate.name}}</td>
+        <td>{{candidate.color}}</td>
         <td>{{candidate.votes}}</td>
         <td>{{candidate.percent}}</td>
     </tbody>
