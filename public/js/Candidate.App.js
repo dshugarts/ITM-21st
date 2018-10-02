@@ -39,6 +39,43 @@ app.component("itmRoot", {
 
         onAddCandidate(candidate) {
             console.log(`Added candidate ${candidate.name}`);
+            console.log('name = ', candidate);
+            let duplicate = false;
+
+            candidate = {
+                name: candidate.name,
+                votes: 0,
+                percent: 0+"%"
+            } // defines new candidate object
+
+            console.log('name 2= ', candidate);
+           
+            // validates input
+            this.validation = function(duplicate) {
+                console.log('in valid', duplicate);
+                if (candidate.name === '') {
+                    alert("Please Enter a Candidate Name");
+                } else if (duplicate === true) {
+                    alert("Duplicate Candidates are Forbidden");
+                } else {
+                    console.log('double');
+                    this.candidates.push(candidate);
+              }
+            } // end validation
+           
+            this.candidates.forEach(function(existingCandidate) {
+                
+                console.log('forEach = ', existingCandidate);
+                if (candidate.name === existingCandidate.name) {
+                    duplicate = true;
+                   // location.reload();
+                } else {
+                  //  duplicate = false;
+                }
+                console.log('duplicate', duplicate);
+                }); // checks input for duplicate candidates
+
+                this.validation(duplicate);
         } // end onAddCandidate
 
         onRemoveCandidate(candidate) {
@@ -102,52 +139,14 @@ app.component("itmManagement", {
     }
 
         submitCandidate(candidate) {
-            let self = this;
+            this.onAdd({ $candidate: candidate });
 
-            // clears textbox on click
-            self.clearText = function() {
+             // clears textbox on click
+             this.clearText = function() {
                 this.newCandidate.name = "";
             } //end clearText
 
-            console.log('name = ', candidate);
-
-            
-            candidate = {
-                name: candidate.name,
-                votes: 0,
-                percent: 0+"%"
-            } // defines new candidate object
-
-            console.log('name 2= ', candidate);
-           
-            // validates input
-            self.validation = function() {
-                console.log('in valid');
-                if (candidate.name === '') {
-                    alert("Please Enter a Candidate Name");
-                    self.clearText();
-                } else {
-                    console.log('double');
-                    this.onAdd({ $candidate: candidate })
-                    this.candidates.push(candidate);
-                    self.clearText();
-              }
-            } // end validation
-           
-            this.candidates.forEach(function(existingCandidate) {
-                let duplicate = false;
-                console.log('forEach = ', existingCandidate);
-                if (candidate.name === existingCandidate.name) {
-                    duplicate = true;
-                    alert("Duplicate");
-                    location.reload();
-                } else {
-                    duplicate = false;
-                }
-                console.log('duplicate', duplicate);
-                }); // checks input for duplicate candidates
-
-                self.validation();
+            this.clearText();
         }
         
         removeCandidate(candidate) {
